@@ -1,22 +1,71 @@
 import type { Component } from "solid-js";
 import { For, createSignal } from "solid-js";
 import { A } from "@solidjs/router";
-import { projectAccentThemes, projects } from "../data/projects";
+import { projects } from "../data/projects";
+import { accentThemes } from "../theme/accents";
+import { siteAccentTheme } from "../theme/siteAccent";
 
-const inspirationTiles = [
-  { label: "Design Systems", symbol: "DS", border: "border-[#10B981]" },
-  { label: "Run Clubs", symbol: "RC", border: "border-[#F97316]" },
-  { label: "Analog Photos", symbol: "AP", border: "border-[#6366F1]" },
-  { label: "Micro Essays", symbol: "ME", border: "border-[#EC4899]" },
-  { label: "Studio Sessions", symbol: "SS", border: "border-[#0EA5E9]" },
-  { label: "Kitchen Experiments", symbol: "KE", border: "border-[#F59E0B]" },
-];
-
-const nowList = [
-  "Shipping a wellness tracker for distributed teams.",
-  "Re-learning oil pastels by doodling ten minutes a day.",
-  "Documenting every coffee brewed this month.",
-  "Plotting a two-week sabbatical across island trains.",
+const inspirationPanels = [
+  {
+    id: "design-systems",
+    label: "Design Systems",
+    symbol: "DS",
+    border: "border-[#10B981]",
+    accent: "bg-[#10B981]",
+    contentBg: "bg-[#ECFDF5]",
+    description:
+      "Composing tactile component kits for dashboards that feel analog yet wildly fast.",
+    highlights: [
+      "Rolling multi-theme tokens for Flow Studio rituals.",
+      "Auditioning embossed states for knobs + sliders.",
+      "Pairing with product marketing to storyboard launches.",
+    ],
+  },
+  {
+    id: "run-clubs",
+    label: "Run Clubs",
+    symbol: "RC",
+    border: "border-[#F97316]",
+    accent: "bg-[#F97316]",
+    contentBg: "bg-[#FFF4E6]",
+    description:
+      "Documenting run cadence dashboards plus playful accountability nudges for long-distance crews.",
+    highlights: [
+      "Parsing cadence + HRV into emoji-grade insights.",
+      "Refining post-run audio snippets for vibes.",
+      "Building badge drops for community captains.",
+    ],
+  },
+  {
+    id: "analog-photos",
+    label: "Analog Photos",
+    symbol: "AP",
+    border: "border-[#6366F1]",
+    accent: "bg-[#6366F1]",
+    contentBg: "bg-[#EEF2FF]",
+    description:
+      "Scanning dimly lit medium format experiments and remixing them as UI color palettes.",
+    highlights: [
+      "Mapping grain textures onto button micro-states.",
+      "Color grading polaroids into Tailwind tokens.",
+      "Animating light leaks as loading indicators.",
+    ],
+  },
+  {
+    id: "micro-essays",
+    label: "Micro Essays",
+    symbol: "ME",
+    border: "border-[#EC4899]",
+    accent: "bg-[#EC4899]",
+    contentBg: "bg-[#FDF2F8]",
+    description:
+      "Writing snack-sized essays to test storytelling frameworks before shipping docs.",
+    highlights: [
+      "Synthesizing weekly learnings into 250-word drops.",
+      "Experimenting with AI-assisted tonal rewrites.",
+      "Packaging the best riffs into onboarding scripts.",
+    ],
+  },
 ];
 
 const contactItems = [
@@ -41,7 +90,14 @@ const socialLinks = [
 const projectLimit = 5;
 
 const Home: Component = () => {
+  const siteAccent = siteAccentTheme;
   const [copiedLabel, setCopiedLabel] = createSignal("");
+  const [activeInspirationId, setActiveInspirationId] = createSignal(
+    inspirationPanels[0].id,
+  );
+  const activeInspiration = () =>
+    inspirationPanels.find((panel) => panel.id === activeInspirationId()) ??
+    inspirationPanels[0];
 
   const handleCopy = async (label: string, value: string) => {
     try {
@@ -65,12 +121,18 @@ const Home: Component = () => {
     <div class="min-h-screen bg-[#F5F0E6] text-[#111] font-['Space_Grotesk',system-ui,sans-serif]">
       <div class="relative max-w-5xl mx-auto px-6 py-12 space-y-14">
         <div class="absolute inset-x-0 top-4 -z-10 flex justify-between px-10 opacity-60">
-          <div class="h-16 w-16 rounded-full bg-[#E0E7FF] border-4 border-black shadow-[6px_6px_0_rgba(0,0,0,0.4)]" />
-          <div class="h-20 w-20 rounded-3xl bg-[#FEE2E2] border-4 border-black shadow-[6px_6px_0_rgba(0,0,0,0.4)]" />
+          <div
+            class={`h-16 w-16 rounded-full border-4 border-black shadow-[6px_6px_0_rgba(0,0,0,0.4)] ${siteAccent.tintBgClass}`}
+          />
+          <div
+            class={`h-20 w-20 rounded-3xl border-4 border-black shadow-[6px_6px_0_rgba(0,0,0,0.4)] ${siteAccent.accentBgClass}`}
+          />
         </div>
 
         <header class="bg-white border-4 border-black shadow-[10px_10px_0_rgba(0,0,0,0.9)] rounded-[2.25rem] p-8 sm:p-12">
-          <div class="inline-flex items-center gap-2 rounded-full border-2 border-black bg-[#FFF8E1] px-4 py-1 text-sm font-medium">
+          <div
+            class={`inline-flex items-center gap-2 rounded-full border-2 border-black px-4 py-1 text-sm font-medium ${siteAccent.tintBgClass}`}
+          >
             <span class="text-lg">*</span> Available for remote collabs
           </div>
           <div class="mt-6 grid gap-6 md:grid-cols-[3fr,2fr] md:items-end">
@@ -87,8 +149,10 @@ const Home: Component = () => {
                 experiments.
               </p>
             </div>
-            <div class="rounded-3xl border-4 border-black bg-[#DCFCE7] p-5 text-lg font-medium md:text-base">
-              <p class="text-sm uppercase tracking-[0.3em] text-[#0C7C59]">
+            <div
+              class={`rounded-3xl border-4 border-black p-5 text-lg font-medium md:text-base ${siteAccent.tintBgClass}`}
+            >
+              <p class={`text-sm uppercase tracking-[0.3em] ${siteAccent.accentTextClass}`}>
                 Signal boost
               </p>
               <p class="mt-3">
@@ -99,7 +163,7 @@ const Home: Component = () => {
               <button
                 type="button"
                 onClick={scrollToContact}
-                class="mt-4 w-full rounded-2xl border-2 border-black bg-black py-2 text-white transition hover:-translate-y-1"
+                class={`mt-4 w-full rounded-2xl border-2 border-black py-2 transition hover:-translate-y-1 ${siteAccent.accentBgClass} ${siteAccent.onAccentTextClass}`}
               >
                 Contact me
               </button>
@@ -112,7 +176,7 @@ const Home: Component = () => {
             <h2 class="text-2xl font-semibold">Recent projects</h2>
             <A
               href="/projects"
-              class="flex items-center gap-2 rounded-full border-2 border-black bg-white px-4 py-1 text-sm font-semibold shadow-[4px_4px_0_rgba(0,0,0,0.7)]"
+              class={`flex items-center gap-2 rounded-full border-2 border-black px-4 py-1 text-sm font-semibold shadow-[4px_4px_0_rgba(0,0,0,0.7)] ${siteAccent.tintBgClass}`}
             >
               View all <span aria-hidden="true">↗</span>
             </A>
@@ -120,7 +184,7 @@ const Home: Component = () => {
           <div class="space-y-5">
             <For each={featuredProjects()}>
               {(project) => {
-                const accent = projectAccentThemes[project.accent];
+                const accent = accentThemes[project.accent];
                 return (
                   <a
                     href={project.link}
@@ -149,39 +213,63 @@ const Home: Component = () => {
           </div>
         </section>
 
-        <section class="grid gap-8 lg:grid-cols-[3fr,2fr]">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <h2 class="text-2xl font-semibold">Inspiration</h2>
-              <span class="text-sm uppercase tracking-[0.35em] text-[#7C7C7C]">
-                timed activities
+        <section>
+          <div class="space-y-6 rounded-[2.5rem] border-4 border-black bg-white p-8 shadow-[10px_10px_0_rgba(0,0,0,0.9)]">
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p class="text-xs uppercase tracking-[0.35em] text-[#7C7C7C]">
+                  Inspiration switchboard
+                </p>
+                <h2 class="text-2xl font-semibold">Moodboard experiments</h2>
+              </div>
+              <span class="text-sm font-semibold text-[#2F2F2F]">
+                Tap a tile to change the feed
               </span>
             </div>
-            <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
-              <For each={inspirationTiles}>
-                {(tile) => (
-                  <div
-                    class="rounded-2xl border-2 bg-white px-4 py-6 text-center text-sm font-semibold shadow-[6px_6px_0_rgba(0,0,0,0.75)]"
-                    classList={{ [tile.border]: true }}
-                  >
-                    <div class="text-xl tracking-[0.3em]">{tile.symbol}</div>
-                    <p class="mt-3 leading-snug">{tile.label}</p>
-                  </div>
-                )}
+            <div class="grid grid-cols-2 gap-4 sm:grid-cols-4">
+              <For each={inspirationPanels}>
+                {(panel) => {
+                  const isActive = () => activeInspirationId() === panel.id;
+                  return (
+                    <button
+                      type="button"
+                      onClick={() => setActiveInspirationId(panel.id)}
+                      class={`rounded-2xl border-2 px-4 py-5 text-left font-semibold shadow-[6px_6px_0_rgba(0,0,0,0.75)] transition hover:-translate-y-1 focus-visible:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black focus-visible:ring-offset-4 focus-visible:ring-offset-[#F5F0E6] ${panel.border}`}
+                      classList={{
+                        "bg-black text-white": isActive(),
+                        "bg-white": !isActive(),
+                      }}
+                    >
+                      <div
+                        class={`inline-flex items-center justify-center rounded-full px-2 py-1 text-xs font-bold ${panel.accent}`}
+                      >
+                        {panel.symbol}
+                      </div>
+                      <p class="mt-3 leading-snug">{panel.label}</p>
+                    </button>
+                  );
+                }}
               </For>
             </div>
-          </div>
-          <div class="rounded-[2rem] border-4 border-black bg-[#FDECF3] p-8 shadow-[10px_10px_0_rgba(0,0,0,0.85)]">
-            <p class="text-sm uppercase tracking-[0.3em] text-[#A61B52]">Now</p>
-            <h2 class="mt-2 text-2xl font-semibold">Current signals</h2>
-            <ul class="mt-5 space-y-4 text-sm leading-relaxed">
-              <For each={nowList}>
-                {(item) => <li class="pl-4 text-[#272727]">- {item}</li>}
-              </For>
-            </ul>
-            <div class="mt-5 flex items-center justify-between rounded-2xl border-2 border-black bg-white px-4 py-3 text-sm font-semibold">
-              <span>Weekly pulse report</span>
-              <span aria-hidden="true">-&gt;</span>
+            <div
+              class={`rounded-[2rem] border-4 border-black p-6 sm:p-8 shadow-[10px_10px_0_rgba(0,0,0,0.85)] ${activeInspiration().contentBg}`}
+            >
+              <div class="flex items-center gap-3 text-sm font-semibold">
+                <span
+                  class={`inline-flex h-3 w-3 rounded-full border border-black ${activeInspiration().accent}`}
+                />
+                <span class="uppercase tracking-[0.35em] text-[#4C4C4C]">
+                  {activeInspiration().label}
+                </span>
+              </div>
+              <p class="mt-3 text-xl font-semibold text-[#1F1F1F] leading-tight">
+                {activeInspiration().description}
+              </p>
+              <ul class="mt-4 space-y-2 text-sm text-[#2F2F2F]">
+                <For each={activeInspiration().highlights}>
+                  {(highlight) => <li class="pl-4">- {highlight}</li>}
+                </For>
+              </ul>
             </div>
           </div>
         </section>

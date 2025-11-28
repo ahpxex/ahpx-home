@@ -1,9 +1,12 @@
 import type { Component } from 'solid-js';
 import { For } from 'solid-js';
 import { A } from '@solidjs/router';
-import { projectAccentThemes, projects } from '../data/projects';
+import { projects } from '../data/projects';
+import { accentThemes } from '../theme/accents';
+import { siteAccentTheme } from '../theme/siteAccent';
 
 const ProjectsPage: Component = () => {
+  const siteAccent = siteAccentTheme;
   return (
     <div class="min-h-screen bg-[#F5F0E6] text-[#111] font-['Space_Grotesk',system-ui,sans-serif]">
       <div class="max-w-5xl mx-auto px-6 py-12 space-y-10">
@@ -19,7 +22,7 @@ const ProjectsPage: Component = () => {
             </div>
             <A
               href="/"
-              class="self-start rounded-2xl border-2 border-black bg-white px-5 py-2 text-sm font-semibold shadow-[4px_4px_0_rgba(0,0,0,0.8)]"
+              class={`self-start rounded-2xl border-2 border-black px-5 py-2 text-sm font-semibold shadow-[4px_4px_0_rgba(0,0,0,0.8)] ${siteAccent.tintBgClass}`}
             >
               ← Back home
             </A>
@@ -29,7 +32,7 @@ const ProjectsPage: Component = () => {
         <section class="space-y-6">
           <For each={projects}>
             {(project) => {
-              const accent = projectAccentThemes[project.accent];
+              const accent = accentThemes[project.accent];
               return (
                 <a
                   href={project.link}
