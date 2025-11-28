@@ -2,59 +2,9 @@ import type { Component } from "solid-js";
 import { For, createSignal } from "solid-js";
 import { A } from "@solidjs/router";
 import { projects } from "../data/projects";
+import { baseInspirationPanels } from "../data/inspirationPanels";
 import { accentThemes, getRandomAccentKey } from "../theme/accents";
 import { siteAccentTheme } from "../theme/siteAccent";
-
-const baseInspirationPanels = [
-  {
-    id: "design-systems",
-    label: "Design Systems",
-    symbol: "DS",
-    description:
-      "Composing tactile component kits for dashboards that feel analog yet wildly fast.",
-    highlights: [
-      "Rolling multi-theme tokens for Flow Studio rituals.",
-      "Auditioning embossed states for knobs + sliders.",
-      "Pairing with product marketing to storyboard launches.",
-    ],
-  },
-  {
-    id: "run-clubs",
-    label: "Run Clubs",
-    symbol: "RC",
-    description:
-      "Documenting run cadence dashboards plus playful accountability nudges for long-distance crews.",
-    highlights: [
-      "Parsing cadence + HRV into emoji-grade insights.",
-      "Refining post-run audio snippets for vibes.",
-      "Building badge drops for community captains.",
-    ],
-  },
-  {
-    id: "analog-photos",
-    label: "Analog Photos",
-    symbol: "AP",
-    description:
-      "Scanning dimly lit medium format experiments and remixing them as UI color palettes.",
-    highlights: [
-      "Mapping grain textures onto button micro-states.",
-      "Color grading polaroids into Tailwind tokens.",
-      "Animating light leaks as loading indicators.",
-    ],
-  },
-  {
-    id: "micro-essays",
-    label: "Micro Essays",
-    symbol: "ME",
-    description:
-      "Writing snack-sized essays to test storytelling frameworks before shipping docs.",
-    highlights: [
-      "Synthesizing weekly learnings into 250-word drops.",
-      "Experimenting with AI-assisted tonal rewrites.",
-      "Packaging the best riffs into onboarding scripts.",
-    ],
-  },
-];
 
 const inspirationPanels = baseInspirationPanels.map((panel) => {
   const accentKey = getRandomAccentKey();
@@ -183,13 +133,24 @@ const Home: Component = () => {
             <For each={featuredProjects()}>
               {(project) => {
                 const accent = accentThemes[project.accent];
+                const [isHighlighted, setIsHighlighted] = createSignal(false);
                 return (
                   <a
                     href={project.link}
                     target="_blank"
                     rel="noreferrer"
                     aria-label={`Open ${project.title}`}
-                    class={`block rounded-[1.75rem] border-[3px] bg-white p-5 sm:p-6 relative overflow-hidden ${accent.borderClass} ${accent.homeShadowClass} ${accent.homeHoverShadowClass} cursor-pointer transition-transform duration-200 ease-out hover:-translate-y-1 focus-visible:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black focus-visible:ring-offset-4 focus-visible:ring-offset-[#F5F0E6]`}
+                    onMouseEnter={() => setIsHighlighted(true)}
+                    onMouseLeave={() => setIsHighlighted(false)}
+                    onFocus={() => setIsHighlighted(true)}
+                    onBlur={() => setIsHighlighted(false)}
+                    class={`block rounded-[1.75rem] border-[3px] bg-white p-5 sm:p-6 relative overflow-hidden cursor-pointer transition-transform duration-200 ease-out hover:-translate-y-1 focus-visible:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black focus-visible:ring-offset-4 focus-visible:ring-offset-[#F5F0E6]`}
+                    classList={{
+                      [accent.borderClass]: isHighlighted(),
+                      [accent.homeShadowClass]: isHighlighted(),
+                      [accent.homeHoverShadowClass]: isHighlighted(),
+                      "border-black shadow-[6px_6px_0_rgba(0,0,0,0.85)]": !isHighlighted(),
+                    }}
                   >
                     <div class="flex items-center justify-between gap-4">
                       <div>
@@ -249,9 +210,7 @@ const Home: Component = () => {
                 }}
               </For>
             </div>
-            <div
-              class={`rounded-[2rem] border-4 border-black p-6 sm:p-8 shadow-[10px_10px_0_rgba(0,0,0,0.85)] ${activeInspiration().accent.tintBgClass}`}
-            >
+            <div class="rounded-[2rem] border-4 border-black bg-white p-6 sm:p-8 shadow-[10px_10px_0_rgba(0,0,0,0.85)]">
               <div class="flex items-center gap-3 text-sm font-semibold">
                 <span
                   class={`inline-flex h-3 w-3 rounded-full border border-black ${activeInspiration().accent.accentBgClass}`}
