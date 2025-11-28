@@ -55,6 +55,11 @@ const contactItems = [
   },
 ];
 
+const socialLinks = [
+  { label: 'GitHub', href: 'https://github.com/ahpxex' },
+  { label: 'Twitter', href: 'https://x.com/ofshawnfan' },
+];
+
 const App: Component = () => {
   const [copiedLabel, setCopiedLabel] = createSignal('');
 
@@ -202,27 +207,30 @@ const App: Component = () => {
               )}
             </For>
           </div>
-        </section>
 
-        <footer class="rounded-[2rem] border-4 border-black bg-white px-6 py-10 shadow-[10px_10px_0_rgba(0,0,0,0.85)]">
-          <div class="flex flex-col gap-4 text-sm sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <p class="text-lg font-semibold">Let's build the next playful tool.</p>
-              <p>DM @ahpx / hello@ahpx.studio - Working from UTC+7</p>
-            </div>
-            <div class="flex gap-3 text-base font-semibold">
-              <a class="rounded-2xl border-2 border-black px-4 py-2 hover:-translate-y-1" href="https://dribbble.com" target="_blank" rel="noreferrer">
-                Dribbble
-              </a>
-              <a class="rounded-2xl border-2 border-black px-4 py-2 hover:-translate-y-1" href="https://github.com" target="_blank" rel="noreferrer">
-                GitHub
-              </a>
-              <a class="rounded-2xl border-2 border-black px-4 py-2 hover:-translate-y-1" href="https://read.cv" target="_blank" rel="noreferrer">
-                Read.cv
-              </a>
+          <div class="mt-8 rounded-[2rem] border-4 border-black bg-white px-6 py-6 shadow-[8px_8px_0_rgba(0,0,0,0.8)]">
+            <div class="flex flex-col gap-4 text-sm sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p class="text-lg font-semibold">Let's build the next playful tool.</p>
+                <p>Working from UTC+7 · DM @ahpx or email to jam on launches.</p>
+              </div>
+              <div class="flex flex-wrap gap-3 text-base font-semibold">
+                <For each={socialLinks}>
+                  {(link) => (
+                    <a
+                      class="rounded-2xl border-2 border-black px-4 py-2 transition hover:-translate-y-1"
+                      href={link.href}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {link.label}
+                    </a>
+                  )}
+                </For>
+              </div>
             </div>
           </div>
-        </footer>
+        </section>
       </div>
     </div>
   );
