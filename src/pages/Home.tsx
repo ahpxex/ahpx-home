@@ -2,17 +2,14 @@ import type { Component } from "solid-js";
 import { For, createSignal } from "solid-js";
 import { A } from "@solidjs/router";
 import { projects } from "../data/projects";
-import { accentThemes } from "../theme/accents";
+import { accentThemes, getRandomAccentKey } from "../theme/accents";
 import { siteAccentTheme } from "../theme/siteAccent";
 
-const inspirationPanels = [
+const baseInspirationPanels = [
   {
     id: "design-systems",
     label: "Design Systems",
     symbol: "DS",
-    border: "border-[#10B981]",
-    accent: "bg-[#10B981]",
-    contentBg: "bg-[#ECFDF5]",
     description:
       "Composing tactile component kits for dashboards that feel analog yet wildly fast.",
     highlights: [
@@ -25,9 +22,6 @@ const inspirationPanels = [
     id: "run-clubs",
     label: "Run Clubs",
     symbol: "RC",
-    border: "border-[#F97316]",
-    accent: "bg-[#F97316]",
-    contentBg: "bg-[#FFF4E6]",
     description:
       "Documenting run cadence dashboards plus playful accountability nudges for long-distance crews.",
     highlights: [
@@ -40,9 +34,6 @@ const inspirationPanels = [
     id: "analog-photos",
     label: "Analog Photos",
     symbol: "AP",
-    border: "border-[#6366F1]",
-    accent: "bg-[#6366F1]",
-    contentBg: "bg-[#EEF2FF]",
     description:
       "Scanning dimly lit medium format experiments and remixing them as UI color palettes.",
     highlights: [
@@ -55,9 +46,6 @@ const inspirationPanels = [
     id: "micro-essays",
     label: "Micro Essays",
     symbol: "ME",
-    border: "border-[#EC4899]",
-    accent: "bg-[#EC4899]",
-    contentBg: "bg-[#FDF2F8]",
     description:
       "Writing snack-sized essays to test storytelling frameworks before shipping docs.",
     highlights: [
@@ -67,6 +55,16 @@ const inspirationPanels = [
     ],
   },
 ];
+
+const inspirationPanels = baseInspirationPanels.map((panel) => {
+  const accentKey = getRandomAccentKey();
+  const accent = accentThemes[accentKey];
+  return {
+    ...panel,
+    accentKey,
+    accent,
+  };
+});
 
 const contactItems = [
   {
@@ -234,14 +232,14 @@ const Home: Component = () => {
                     <button
                       type="button"
                       onClick={() => setActiveInspirationId(panel.id)}
-                      class={`rounded-2xl border-2 px-4 py-5 text-left font-semibold shadow-[6px_6px_0_rgba(0,0,0,0.75)] transition hover:-translate-y-1 focus-visible:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black focus-visible:ring-offset-4 focus-visible:ring-offset-[#F5F0E6] ${panel.border}`}
-                      classList={{
-                        "bg-black text-white": isActive(),
-                        "bg-white": !isActive(),
-                      }}
+                      class={`rounded-2xl border-2 px-4 py-5 text-left font-semibold shadow-[6px_6px_0_rgba(0,0,0,0.75)] transition hover:-translate-y-1 focus-visible:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black focus-visible:ring-offset-4 focus-visible:ring-offset-[#F5F0E6] ${panel.accent.borderClass} ${
+                        isActive()
+                          ? `${panel.accent.accentBgClass} ${panel.accent.onAccentTextClass}`
+                          : "bg-white text-[#1F1F1F]"
+                      }`}
                     >
                       <div
-                        class={`inline-flex items-center justify-center rounded-full px-2 py-1 text-xs font-bold ${panel.accent}`}
+                        class={`inline-flex items-center justify-center rounded-full px-2 py-1 text-xs font-bold ${panel.accent.accentBgClass} ${panel.accent.onAccentTextClass}`}
                       >
                         {panel.symbol}
                       </div>
@@ -252,11 +250,11 @@ const Home: Component = () => {
               </For>
             </div>
             <div
-              class={`rounded-[2rem] border-4 border-black p-6 sm:p-8 shadow-[10px_10px_0_rgba(0,0,0,0.85)] ${activeInspiration().contentBg}`}
+              class={`rounded-[2rem] border-4 border-black p-6 sm:p-8 shadow-[10px_10px_0_rgba(0,0,0,0.85)] ${activeInspiration().accent.tintBgClass}`}
             >
               <div class="flex items-center gap-3 text-sm font-semibold">
                 <span
-                  class={`inline-flex h-3 w-3 rounded-full border border-black ${activeInspiration().accent}`}
+                  class={`inline-flex h-3 w-3 rounded-full border border-black ${activeInspiration().accent.accentBgClass}`}
                 />
                 <span class="uppercase tracking-[0.35em] text-[#4C4C4C]">
                   {activeInspiration().label}
@@ -280,7 +278,7 @@ const Home: Component = () => {
         >
           <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p class="text-sm uppercase tracking-[0.35em] text-[#7C7C7C]">
+              <p class={`text-sm uppercase tracking-[0.35em] ${siteAccent.accentTextClass}`}>
                 Direct line
               </p>
               <h2 class="text-3xl font-semibold">
@@ -294,10 +292,10 @@ const Home: Component = () => {
               {(item) => (
                 <button
                   type="button"
-                  class="rounded-3xl border-[3px] border-black bg-[#F4FCE3] px-5 py-5 text-left shadow-[6px_6px_0_rgba(0,0,0,0.8)] transition hover:-translate-y-1"
+                  class={`rounded-3xl border-[3px] border-black px-5 py-5 text-left shadow-[6px_6px_0_rgba(0,0,0,0.8)] transition hover:-translate-y-1 ${siteAccent.tintBgClass}`}
                   onClick={() => handleCopy(item.label, item.value)}
                 >
-                  <p class="text-xs uppercase tracking-[0.35em] text-[#4C4C4C]">
+                  <p class={`text-xs uppercase tracking-[0.35em] ${siteAccent.accentTextClass}`}>
                     {item.label}
                   </p>
                   <p class="mt-2 text-xl font-semibold">
@@ -326,7 +324,7 @@ const Home: Component = () => {
                 <For each={socialLinks}>
                   {(link) => (
                     <a
-                      class="rounded-2xl border-2 border-black px-4 py-2 transition hover:-translate-y-1"
+                      class={`rounded-2xl border-2 border-black px-4 py-2 transition hover:-translate-y-1 ${siteAccent.tintBgClass}`}
                       href={link.href}
                       target="_blank"
                       rel="noreferrer"
