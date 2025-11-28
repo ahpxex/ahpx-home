@@ -1,62 +1,62 @@
-import type { Component } from 'solid-js';
-import { For, createSignal } from 'solid-js';
-import { A } from '@solidjs/router';
-import { projects } from '../data/projects';
+import type { Component } from "solid-js";
+import { For, createSignal } from "solid-js";
+import { A } from "@solidjs/router";
+import { projectAccentThemes, projects } from "../data/projects";
 
 const inspirationTiles = [
-  { label: 'Design Systems', symbol: 'DS', border: 'border-[#10B981]' },
-  { label: 'Run Clubs', symbol: 'RC', border: 'border-[#F97316]' },
-  { label: 'Analog Photos', symbol: 'AP', border: 'border-[#6366F1]' },
-  { label: 'Micro Essays', symbol: 'ME', border: 'border-[#EC4899]' },
-  { label: 'Studio Sessions', symbol: 'SS', border: 'border-[#0EA5E9]' },
-  { label: 'Kitchen Experiments', symbol: 'KE', border: 'border-[#F59E0B]' },
+  { label: "Design Systems", symbol: "DS", border: "border-[#10B981]" },
+  { label: "Run Clubs", symbol: "RC", border: "border-[#F97316]" },
+  { label: "Analog Photos", symbol: "AP", border: "border-[#6366F1]" },
+  { label: "Micro Essays", symbol: "ME", border: "border-[#EC4899]" },
+  { label: "Studio Sessions", symbol: "SS", border: "border-[#0EA5E9]" },
+  { label: "Kitchen Experiments", symbol: "KE", border: "border-[#F59E0B]" },
 ];
 
 const nowList = [
-  'Shipping a wellness tracker for distributed teams.',
-  'Re-learning oil pastels by doodling ten minutes a day.',
-  'Documenting every coffee brewed this month.',
-  'Plotting a two-week sabbatical across island trains.',
+  "Shipping a wellness tracker for distributed teams.",
+  "Re-learning oil pastels by doodling ten minutes a day.",
+  "Documenting every coffee brewed this month.",
+  "Plotting a two-week sabbatical across island trains.",
 ];
 
 const contactItems = [
   {
-    label: 'Email',
-    value: 'ahpx@yandex.com',
-    helper: 'Inbox monitored daily.',
+    label: "Email",
+    value: "ahpx@yandex.com",
+    helper: "Inbox monitored daily.",
   },
   {
-    label: 'WeChat',
-    value: 'ahpoxiao',
-    display: 'YWhwb3hpYW8=',
-    helper: 'WeChat handle provided in base64.',
+    label: "WeChat",
+    value: "ahpoxiao",
+    display: "YWhwb3hpYW8=",
+    helper: "WeChat handle provided in base64.",
   },
 ];
 
 const socialLinks = [
-  { label: 'GitHub', href: 'https://github.com/ahpxex' },
-  { label: 'Twitter', href: 'https://x.com/ofshawnfan' },
-  { label: 'Dribbble', href: 'https://dribbble.com' },
-  { label: 'Read.cv', href: 'https://read.cv' },
+  { label: "GitHub", href: "https://github.com/ahpxex" },
+  { label: "Twitter", href: "https://x.com/ofshawnfan" },
 ];
 
 const projectLimit = 5;
 
 const Home: Component = () => {
-  const [copiedLabel, setCopiedLabel] = createSignal('');
+  const [copiedLabel, setCopiedLabel] = createSignal("");
 
   const handleCopy = async (label: string, value: string) => {
     try {
       await navigator.clipboard.writeText(value);
       setCopiedLabel(label);
-      window.setTimeout(() => setCopiedLabel(''), 1500);
+      window.setTimeout(() => setCopiedLabel(""), 1500);
     } catch (error) {
-      console.error('Failed to copy contact detail', error);
+      console.error("Failed to copy contact detail", error);
     }
   };
 
   const scrollToContact = () => {
-    document.getElementById('contact-card')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document
+      .getElementById("contact-card")
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   const featuredProjects = () => projects.slice(0, projectLimit);
@@ -75,20 +75,26 @@ const Home: Component = () => {
           </div>
           <div class="mt-6 grid gap-6 md:grid-cols-[3fr,2fr] md:items-end">
             <div>
-              <p class="text-sm uppercase tracking-[0.4em] text-[#636363]">AHpx / Shawn Fan</p>
+              <p class="text-sm uppercase tracking-[0.4em] text-[#636363]">
+                AHpx / Shawn Fan
+              </p>
               <h1 class="text-4xl sm:text-5xl lg:text-6xl font-semibold leading-tight mt-3">
-                Full-stack product engineer crafting tactile software stories.
+                Full-stack Product Engineer: Building, Shipping, Iterating
               </h1>
               <p class="mt-4 text-lg text-[#2F2F2F]">
-                I'm Shawn "AHpx" Fan—building, shipping, iterating. I blend product strategy with hands-on
-                engineering to ship delightful tools, dashboards, and experiments.
+                I'm Shawn Fan, or AHpx. I blend product strategy with hands-on
+                engineering to ship delightful tools, dashboards, and
+                experiments.
               </p>
             </div>
             <div class="rounded-3xl border-4 border-black bg-[#DCFCE7] p-5 text-lg font-medium md:text-base">
-              <p class="text-sm uppercase tracking-[0.3em] text-[#0C7C59]">Signal boost</p>
+              <p class="text-sm uppercase tracking-[0.3em] text-[#0C7C59]">
+                Signal boost
+              </p>
               <p class="mt-3">
-                Scouting a marketing partner to amplify launches, craft playful campaigns, and keep feedback loops
-                humming. If you blend storytelling with experimentation, let's jam.
+                Scouting a marketing partner to amplify launches, craft playful
+                campaigns, and keep feedback loops humming. If you blend
+                storytelling with experimentation, let's jam.
               </p>
               <button
                 type="button"
@@ -113,22 +119,28 @@ const Home: Component = () => {
           </div>
           <div class="space-y-5">
             <For each={featuredProjects()}>
-              {(project) => (
-                <article
-                  class="rounded-[1.75rem] border-[3px] bg-white p-5 sm:p-6 relative overflow-hidden"
-                  style={{ borderColor: project.accent, boxShadow: '6px 6px 0 ' + project.accent }}
-                >
-                  <div class="flex items-center justify-between gap-4">
-                    <div>
-                      <p class="text-xs uppercase tracking-[0.4em] text-[#636363]">{project.status}</p>
-                      <h3 class="text-xl font-semibold">{project.title}</h3>
-                      <p class="text-sm text-[#5E5E5E]">{project.summary}</p>
+              {(project) => {
+                const accent = projectAccentThemes[project.accent];
+                return (
+                  <article
+                    class={`rounded-[1.75rem] border-[3px] bg-white p-5 sm:p-6 relative overflow-hidden ${accent.borderClass} ${accent.homeShadowClass}`}
+                  >
+                    <div class="flex items-center justify-between gap-4">
+                      <div>
+                        <p class="text-xs uppercase tracking-[0.4em] text-[#636363]">
+                          {project.status}
+                        </p>
+                        <h3 class="text-xl font-semibold">{project.title}</h3>
+                        <p class="text-sm text-[#5E5E5E]">{project.summary}</p>
+                      </div>
+                      <div class="text-3xl">&rsaquo;</div>
                     </div>
-                    <div class="text-3xl">&rsaquo;</div>
-                  </div>
-                  <p class="mt-4 text-sm font-semibold text-[#272727]">{project.stack.join(' • ')}</p>
-                </article>
-              )}
+                    <p class="mt-4 text-sm font-semibold text-[#272727]">
+                      {project.stack.join(" • ")}
+                    </p>
+                  </article>
+                );
+              }}
             </For>
           </div>
         </section>
@@ -137,7 +149,9 @@ const Home: Component = () => {
           <div class="space-y-4">
             <div class="flex items-center justify-between">
               <h2 class="text-2xl font-semibold">Inspiration</h2>
-              <span class="text-sm uppercase tracking-[0.35em] text-[#7C7C7C]">timed activities</span>
+              <span class="text-sm uppercase tracking-[0.35em] text-[#7C7C7C]">
+                timed activities
+              </span>
             </div>
             <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
               <For each={inspirationTiles}>
@@ -157,7 +171,9 @@ const Home: Component = () => {
             <p class="text-sm uppercase tracking-[0.3em] text-[#A61B52]">Now</p>
             <h2 class="mt-2 text-2xl font-semibold">Current signals</h2>
             <ul class="mt-5 space-y-4 text-sm leading-relaxed">
-              <For each={nowList}>{(item) => <li class="pl-4 text-[#272727]">- {item}</li>}</For>
+              <For each={nowList}>
+                {(item) => <li class="pl-4 text-[#272727]">- {item}</li>}
+              </For>
             </ul>
             <div class="mt-5 flex items-center justify-between rounded-2xl border-2 border-black bg-white px-4 py-3 text-sm font-semibold">
               <span>Weekly pulse report</span>
@@ -172,8 +188,12 @@ const Home: Component = () => {
         >
           <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p class="text-sm uppercase tracking-[0.35em] text-[#7C7C7C]">Direct line</p>
-              <h2 class="text-3xl font-semibold">Drop a signal, I respond fast.</h2>
+              <p class="text-sm uppercase tracking-[0.35em] text-[#7C7C7C]">
+                Direct line
+              </p>
+              <h2 class="text-3xl font-semibold">
+                Drop a signal, I respond fast.
+              </h2>
             </div>
             <p class="text-sm text-[#343434]">Tap any field to copy.</p>
           </div>
@@ -185,11 +205,15 @@ const Home: Component = () => {
                   class="rounded-3xl border-[3px] border-black bg-[#F4FCE3] px-5 py-5 text-left shadow-[6px_6px_0_rgba(0,0,0,0.8)] transition hover:-translate-y-1"
                   onClick={() => handleCopy(item.label, item.value)}
                 >
-                  <p class="text-xs uppercase tracking-[0.35em] text-[#4C4C4C]">{item.label}</p>
-                  <p class="mt-2 text-xl font-semibold">{item.display ?? item.value}</p>
+                  <p class="text-xs uppercase tracking-[0.35em] text-[#4C4C4C]">
+                    {item.label}
+                  </p>
+                  <p class="mt-2 text-xl font-semibold">
+                    {item.display ?? item.value}
+                  </p>
                   <p class="mt-1 text-sm text-[#2F2F2F]">{item.helper}</p>
                   <p class="mt-3 text-xs font-semibold">
-                    {copiedLabel() === item.label ? 'Copied!' : 'Tap to copy'}
+                    {copiedLabel() === item.label ? "Copied!" : "Tap to copy"}
                   </p>
                 </button>
               )}
@@ -199,8 +223,12 @@ const Home: Component = () => {
           <div class="mt-8 rounded-[2rem] border-4 border-black bg-white px-6 py-6 shadow-[8px_8px_0_rgba(0,0,0,0.8)]">
             <div class="flex flex-col gap-4 text-sm sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <p class="text-lg font-semibold">Let's build the next playful tool.</p>
-                <p>Working from UTC+7 · DM @ahpx or email to jam on launches.</p>
+                <p class="text-lg font-semibold">
+                  Let's build the next playful tool.
+                </p>
+                <p>
+                  Working from UTC+7 · DM @ahpx or email to jam on launches.
+                </p>
               </div>
               <div class="flex flex-wrap gap-3 text-base font-semibold">
                 <For each={socialLinks}>

@@ -1,7 +1,7 @@
 import type { Component } from 'solid-js';
 import { For } from 'solid-js';
 import { A } from '@solidjs/router';
-import { projects } from '../data/projects';
+import { projectAccentThemes, projects } from '../data/projects';
 
 const ProjectsPage: Component = () => {
   return (
@@ -28,34 +28,36 @@ const ProjectsPage: Component = () => {
 
         <section class="space-y-6">
           <For each={projects}>
-            {(project) => (
-              <article
-                class="rounded-[2rem] border-[3px] bg-white p-6 shadow-[8px_8px_0_rgba(0,0,0,0.85)]"
-                style={{ borderColor: project.accent, boxShadow: '8px 8px 0 ' + project.accent }}
-              >
-                <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                  <div class="space-y-2">
-                    <p class="text-xs uppercase tracking-[0.35em] text-[#636363]">{project.status}</p>
-                    <h2 class="text-2xl font-semibold">{project.title}</h2>
-                    <p class="text-sm text-[#3A3A3A]">{project.summary}</p>
-                    <p class="text-sm font-semibold text-[#1F1F1F]">{project.stack.join(' • ')}</p>
+            {(project) => {
+              const accent = projectAccentThemes[project.accent];
+              return (
+                <article
+                  class={`rounded-[2rem] border-[3px] bg-white p-6 ${accent.borderClass} ${accent.projectsShadowClass}`}
+                >
+                  <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                    <div class="space-y-2">
+                      <p class="text-xs uppercase tracking-[0.35em] text-[#636363]">{project.status}</p>
+                      <h2 class="text-2xl font-semibold">{project.title}</h2>
+                      <p class="text-sm text-[#3A3A3A]">{project.summary}</p>
+                      <p class="text-sm font-semibold text-[#1F1F1F]">{project.stack.join(' • ')}</p>
+                    </div>
+                    <div class="flex flex-col gap-3 text-sm font-semibold">
+                      <span class="inline-flex items-center gap-2 rounded-full border-2 border-black px-4 py-1">
+                        <span class={`h-2.5 w-2.5 rounded-full ${accent.dotClass}`} /> Live signal
+                      </span>
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noreferrer"
+                        class="rounded-2xl border-2 border-black bg-black px-5 py-2 text-white transition hover:-translate-y-1"
+                      >
+                        View build ↗
+                      </a>
+                    </div>
                   </div>
-                  <div class="flex flex-col gap-3 text-sm font-semibold">
-                    <span class="inline-flex items-center gap-2 rounded-full border-2 border-black px-4 py-1">
-                      <span class="h-2.5 w-2.5 rounded-full" style={{ background: project.accent }} /> Live signal
-                    </span>
-                    <a
-                      href={project.link}
-                      target="_blank"
-                      rel="noreferrer"
-                      class="rounded-2xl border-2 border-black bg-black px-5 py-2 text-white transition hover:-translate-y-1"
-                    >
-                      View build ↗
-                    </a>
-                  </div>
-                </div>
-              </article>
-            )}
+                </article>
+              );
+            }}
           </For>
         </section>
       </div>
