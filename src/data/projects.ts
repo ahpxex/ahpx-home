@@ -47,6 +47,38 @@ export const projectAccentThemes = {
     projectsHoverShadowClass: 'hover:shadow-[11px_11px_0_#0EA5E9]',
     dotClass: 'bg-[#0EA5E9]',
   },
+  amber: {
+    borderClass: 'border-[#F59E0B]',
+    homeShadowClass: 'shadow-[6px_6px_0_#F59E0B]',
+    homeHoverShadowClass: 'hover:shadow-[9px_9px_0_#F59E0B]',
+    projectsShadowClass: 'shadow-[8px_8px_0_#F59E0B]',
+    projectsHoverShadowClass: 'hover:shadow-[11px_11px_0_#F59E0B]',
+    dotClass: 'bg-[#F59E0B]',
+  },
+  rosewood: {
+    borderClass: 'border-[#DC2626]',
+    homeShadowClass: 'shadow-[6px_6px_0_#DC2626]',
+    homeHoverShadowClass: 'hover:shadow-[9px_9px_0_#DC2626]',
+    projectsShadowClass: 'shadow-[8px_8px_0_#DC2626]',
+    projectsHoverShadowClass: 'hover:shadow-[11px_11px_0_#DC2626]',
+    dotClass: 'bg-[#DC2626]',
+  },
+  slate: {
+    borderClass: 'border-[#475569]',
+    homeShadowClass: 'shadow-[6px_6px_0_#475569]',
+    homeHoverShadowClass: 'hover:shadow-[9px_9px_0_#475569]',
+    projectsShadowClass: 'shadow-[8px_8px_0_#475569]',
+    projectsHoverShadowClass: 'hover:shadow-[11px_11px_0_#475569]',
+    dotClass: 'bg-[#475569]',
+  },
+  mint: {
+    borderClass: 'border-[#14B8A6]',
+    homeShadowClass: 'shadow-[6px_6px_0_#14B8A6]',
+    homeHoverShadowClass: 'hover:shadow-[9px_9px_0_#14B8A6]',
+    projectsShadowClass: 'shadow-[8px_8px_0_#14B8A6]',
+    projectsHoverShadowClass: 'hover:shadow-[11px_11px_0_#14B8A6]',
+    dotClass: 'bg-[#14B8A6]',
+  },
 } as const;
 
 export type ProjectAccent = keyof typeof projectAccentThemes;
@@ -61,59 +93,48 @@ export type Project = {
   link: string;
 };
 
-export const projects: Project[] = [
+const accentPool = Object.keys(projectAccentThemes) as ProjectAccent[];
+
+const withRandomAccent = <T extends Omit<Project, 'accent'>>(project: T): Project => ({
+  ...project,
+  accent: accentPool[Math.floor(Math.random() * accentPool.length)],
+});
+
+const projectDefinitions: Omit<Project, 'accent'>[] = [
   {
-    slug: 'flow-studio',
-    title: 'Flow Studio',
-    summary: 'A multiplayer dashboard kit for shipping rituals. Tracks daily focus blocks, demos, and async standups in one playful layout.',
-    stack: ['Solid', 'Vite', 'Supabase'],
-    status: 'Private beta',
-    accent: 'lavender',
-    link: 'https://ahpx.studio/flow',
+    slug: 'aictionary',
+    title: 'Aictionary',
+    summary:
+      'Instant desktop dictionary that surfaces cached definitions and falls back to an LLM when new vocabulary pops up.',
+    stack: ['React', 'Tauri'],
+    status: 'Desktop alpha',
+    link: 'https://github.com/ahpxex/aictionary',
   },
   {
-    slug: 'pulse-canvas',
-    title: 'Pulse Canvas',
-    summary: 'A Neubrutalist metrics wall for indie teams—drag cards, track dopamine-free KPIs, and broadcast wins.',
-    stack: ['Solid', 'Three.js'],
-    status: 'Launching Q1',
-    accent: 'tangerine',
-    link: 'https://ahpx.studio/pulse',
+    slug: 'open-dictionary',
+    title: 'Open-Dictionary',
+    summary: 'Python-first toolchain for generating LLM-powered dictionaries grounded in Wiktionary data.',
+    stack: ['Python', 'LLM'],
+    status: 'Research build',
+    link: 'https://github.com/ahpxex/open-dictionary',
   },
   {
-    slug: 'habit-atlas',
-    title: 'Habit Atlas',
-    summary: 'Personal tally tracker for micro routines with custom glyphs, color macros, and whimsical notifications.',
-    stack: ['Solid', 'Capacitor', 'Tailwind'],
-    status: 'iOS TestFlight',
-    accent: 'emerald',
-    link: 'https://ahpx.studio/habit',
+    slug: 'modulelauncher-re',
+    title: 'ModuleLauncher.Re',
+    summary: 'On-the-fly Minecraft launcher core library extracted from a long-running C# modding project.',
+    stack: ['C#'],
+    status: 'Legacy release',
+    link: 'https://github.com/ahpxex/modulelauncher-re',
   },
   {
-    slug: 'atelier-notes',
-    title: 'Atelier Notes',
-    summary: 'Ambient writing tool for product retros. Generates prompts, collects voice notes, and autogenerates shareable storyboards.',
-    stack: ['Solid', 'OpenAI', 'Edge Functions'],
-    status: 'Studio tool',
-    accent: 'cobalt',
-    link: 'https://ahpx.studio/atelier',
-  },
-  {
-    slug: 'lunchbreak-lab',
-    title: 'Lunchbreak Lab',
-    summary: 'A lunchtime project generator for distributed friends. Spin a prompt, auto plan 90-min experiments, record a vibe check.',
-    stack: ['Solid', 'Cloudflare Workers'],
-    status: 'Seasonal drop',
-    accent: 'fuchsia',
-    link: 'https://ahpx.studio/lunchbreak',
-  },
-  {
-    slug: 'signal-deck',
-    title: 'Signal Deck',
-    summary: 'Browser-based command palette that stitches calendars, docs, and DM follow-ups with keyboard-driven interactions.',
-    stack: ['Solid', 'Electron'],
-    status: 'In exploration',
-    accent: 'sky',
-    link: 'https://ahpx.studio/signal',
+    slug: 'open-saas-next',
+    title: 'open-saas-next',
+    summary:
+      'Plug-and-play SaaS dashboard starter built on Next.js, React, and Refine with modern aesthetics baked in.',
+    stack: ['Next.js', 'React', 'Refine'],
+    status: 'Starter kit',
+    link: 'https://github.com/ahpxex/open-saas-next',
   },
 ];
+
+export const projects: Project[] = projectDefinitions.map(withRandomAccent);
