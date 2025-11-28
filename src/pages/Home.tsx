@@ -122,8 +122,12 @@ const Home: Component = () => {
               {(project) => {
                 const accent = projectAccentThemes[project.accent];
                 return (
-                  <article
-                    class={`rounded-[1.75rem] border-[3px] bg-white p-5 sm:p-6 relative overflow-hidden ${accent.borderClass} ${accent.homeShadowClass}`}
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`Open ${project.title}`}
+                    class={`block rounded-[1.75rem] border-[3px] bg-white p-5 sm:p-6 relative overflow-hidden ${accent.borderClass} ${accent.homeShadowClass} ${accent.homeHoverShadowClass} cursor-pointer transition-transform duration-200 ease-out hover:-translate-y-1 focus-visible:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black focus-visible:ring-offset-4 focus-visible:ring-offset-[#F5F0E6]`}
                   >
                     <div class="flex items-center justify-between gap-4">
                       <div>
@@ -138,7 +142,7 @@ const Home: Component = () => {
                     <p class="mt-4 text-sm font-semibold text-[#272727]">
                       {project.stack.join(" • ")}
                     </p>
-                  </article>
+                  </a>
                 );
               }}
             </For>

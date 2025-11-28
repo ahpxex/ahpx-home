@@ -31,8 +31,12 @@ const ProjectsPage: Component = () => {
             {(project) => {
               const accent = projectAccentThemes[project.accent];
               return (
-                <article
-                  class={`rounded-[2rem] border-[3px] bg-white p-6 ${accent.borderClass} ${accent.projectsShadowClass}`}
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`Open ${project.title}`}
+                  class={`block rounded-[2rem] border-[3px] bg-white p-6 ${accent.borderClass} ${accent.projectsShadowClass} ${accent.projectsHoverShadowClass} cursor-pointer transition-transform duration-200 ease-out hover:-translate-y-1 focus-visible:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black focus-visible:ring-offset-4 focus-visible:ring-offset-[#F5F0E6]`}
                 >
                   <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                     <div class="space-y-2">
@@ -45,17 +49,12 @@ const ProjectsPage: Component = () => {
                       <span class="inline-flex items-center gap-2 rounded-full border-2 border-black px-4 py-1">
                         <span class={`h-2.5 w-2.5 rounded-full ${accent.dotClass}`} /> Live signal
                       </span>
-                      <a
-                        href={project.link}
-                        target="_blank"
-                        rel="noreferrer"
-                        class="rounded-2xl border-2 border-black bg-black px-5 py-2 text-white transition hover:-translate-y-1"
-                      >
+                      <span class="rounded-2xl border-2 border-black bg-black px-5 py-2 text-center text-white">
                         View build ↗
-                      </a>
+                      </span>
                     </div>
                   </div>
-                </article>
+                </a>
               );
             }}
           </For>
