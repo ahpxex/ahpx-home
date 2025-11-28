@@ -98,7 +98,7 @@ const Home: Component = () => {
               </p>
             </div>
             <div
-              class={`rounded-3xl border-4 border-black p-5 text-lg font-medium md:text-base ${siteAccent.tintBgClass}`}
+              class={`rounded-3xl border-4 border-black p-5 text-lg font-medium md:text-base shadow-[8px_8px_0_rgba(0,0,0,0.85)] ${siteAccent.tintBgClass}`}
             >
               <p class={`text-sm uppercase tracking-[0.3em] ${siteAccent.accentTextClass}`}>
                 Signal boost
@@ -111,7 +111,7 @@ const Home: Component = () => {
               <button
                 type="button"
                 onClick={scrollToContact}
-                class={`mt-4 w-full rounded-2xl border-2 border-black py-2 transition hover:-translate-y-1 ${siteAccent.accentBgClass} ${siteAccent.onAccentTextClass}`}
+                class={`mt-4 w-full rounded-2xl border-2 border-black py-2 shadow-[4px_4px_0_rgba(0,0,0,0.85)] transition hover:-translate-y-1 ${siteAccent.accentBgClass} ${siteAccent.onAccentTextClass}`}
               >
                 Contact me
               </button>
@@ -222,9 +222,9 @@ const Home: Component = () => {
               <p class="mt-3 text-xl font-semibold text-[#1F1F1F] leading-tight">
                 {activeInspiration().description}
               </p>
-              <ul class="mt-4 space-y-2 text-sm text-[#2F2F2F]">
+              <ul class="mt-4 space-y-2 text-sm text-[#2F2F2F] list-disc pl-5">
                 <For each={activeInspiration().highlights}>
-                  {(highlight) => <li class="pl-4">- {highlight}</li>}
+                  {(highlight) => <li>{highlight}</li>}
                 </For>
               </ul>
             </div>
@@ -283,7 +283,7 @@ const Home: Component = () => {
                 <For each={socialLinks}>
                   {(link) => (
                     <a
-                      class={`rounded-2xl border-2 border-black px-4 py-2 transition hover:-translate-y-1 ${siteAccent.tintBgClass}`}
+                      class={`rounded-2xl border-2 border-black px-4 py-2 shadow-[4px_4px_0_rgba(0,0,0,0.8)] transition hover:-translate-y-1 ${siteAccent.tintBgClass}`}
                       href={link.href}
                       target="_blank"
                       rel="noreferrer"

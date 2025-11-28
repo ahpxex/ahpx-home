@@ -95,18 +95,6 @@ export const accentThemes = {
     onAccentTextClass: "text-white",
     tintBgClass: "bg-[#FEE2E2]",
   },
-  slate: {
-    borderClass: "border-[#475569]",
-    homeShadowClass: "shadow-[6px_6px_0_#475569]",
-    homeHoverShadowClass: "hover:shadow-[9px_9px_0_#475569]",
-    projectsShadowClass: "shadow-[8px_8px_0_#475569]",
-    projectsHoverShadowClass: "hover:shadow-[11px_11px_0_#475569]",
-    dotClass: "bg-[#475569]",
-    accentBgClass: "bg-[#475569]",
-    accentTextClass: "text-[#475569]",
-    onAccentTextClass: "text-white",
-    tintBgClass: "bg-[#E2E8F0]",
-  },
   mint: {
     borderClass: "border-[#14B8A6]",
     homeShadowClass: "shadow-[6px_6px_0_#14B8A6]",

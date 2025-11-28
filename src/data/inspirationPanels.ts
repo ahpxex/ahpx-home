@@ -8,51 +8,51 @@ export type BaseInspirationPanel = {
 
 export const baseInspirationPanels: BaseInspirationPanel[] = [
   {
-    id: "design-systems",
-    label: "Design Systems",
-    symbol: "DS",
+    id: "product-engineer",
+    label: "Product Engineer",
+    symbol: "PE",
     description:
-      "Composing tactile component kits for dashboards that feel analog yet wildly fast.",
+      "Builder-designer hybrid shipping tactile software. I sketch interfaces, wire strategy, and write code that lands in real teams.",
     highlights: [
-      "Rolling multi-theme tokens for Flow Studio rituals.",
-      "Auditioning embossed states for knobs + sliders.",
-      "Pairing with product marketing to storyboard launches.",
+      "Prototype from Figma napkins to production dashboards solo.",
+      "Pair narrative design with full-stack execution every sprint.",
+      "Obsess over tactile feedback: haptics, sounds, micro copies.",
     ],
   },
   {
-    id: "run-clubs",
-    label: "Run Clubs",
-    symbol: "RC",
+    id: "sociology-signal",
+    label: "Sociology Signal",
+    symbol: "SS",
     description:
-      "Documenting run cadence dashboards plus playful accountability nudges for long-distance crews.",
+      "Proud sociology student mindset. Everything ships with human context: rituals, roles, power dynamics.",
     highlights: [
-      "Parsing cadence + HRV into emoji-grade insights.",
-      "Refining post-run audio snippets for vibes.",
-      "Building badge drops for community captains.",
+      "Map user interviews like ethnographic field notes.",
+      "Design onboarding flows as community invitations.",
+      "Push stakeholders to talk social impact, not just KPIs.",
     ],
   },
   {
-    id: "analog-photos",
-    label: "Analog Photos",
-    symbol: "AP",
+    id: "iterator",
+    label: "Iterator",
+    symbol: "TI",
     description:
-      "Scanning dimly lit medium format experiments and remixing them as UI color palettes.",
+      "Perpetual beta brain. I iterate my own thinking, read voraciously, and absorb new ideas as fast as they land.",
     highlights: [
-      "Mapping grain textures onto button micro-states.",
-      "Color grading polaroids into Tailwind tokens.",
-      "Animating light leaks as loading indicators.",
+      "Run weekly review loops to retire stale patterns fast.",
+      "Treat books, essays, and podcasts like labs—take notes, remix prototypes.",
+      "Host micro salons to debate where the web is headed next.",
     ],
   },
   {
-    id: "micro-essays",
-    label: "Micro Essays",
-    symbol: "ME",
+    id: "multi-hobbyist",
+    label: "Multi-Hobbyist",
+    symbol: "MH",
     description:
-      "Writing snack-sized essays to test storytelling frameworks before shipping docs.",
+      "Photography, motorcycling, cycling, bodybuilding—play fuels my product sense and keeps momentum high.",
     highlights: [
-      "Synthesizing weekly learnings into 250-word drops.",
-      "Experimenting with AI-assisted tonal rewrites.",
-      "Packaging the best riffs into onboarding scripts.",
+      "Shoot analog film for palette inspiration and storyboards.",
+      "Log motorcycle / bike rides as motion studies for UI flows.",
+      "Lift, stretch, and breathe to keep curiosity and focus sharp.",
     ],
   },
 ];
