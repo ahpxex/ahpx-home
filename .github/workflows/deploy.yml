@@ -22,18 +22,29 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      # 1. 使用官方 Bun Action，并固定版本以保证稳定性
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
         with:
-          node-version: 20
-          cache: npm
+          bun-version: latest
+          # 2. 自动处理 bun.lockb 的缓存，加速安装
+          # 如果你的项目根目录没有 bun.lockb，请先在本地运行 `bun install` 并提交
+        #   cache: 'bun' # 注意：setup-bun v1 暂时需要手动配置缓存或依赖 bun install 的自动行为，这里保持默认即可
 
+      # 3. 使用 --frozen-lockfile 类似于 npm ci，确保依赖版本与 lock 文件完全一致
       - name: Install dependencies
-        run: npm install
+        run: bun install --frozen-lockfile
 
+      # 4. 构建项目
+      # 建议：在 vite.config.ts 中配合使用 base 配置，防止资源 404
       - name: Build
-        run: npm run build
+        run: bun run build
+        env:
+          # 如果你的 vite 配置支持读取环境变量来设置 base，可以在这里传入
+          # BASE_PATH: /${{ github.event.repository.name }}/
+          NODE_ENV: production
 
+      # 5. 上传构建产物
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
