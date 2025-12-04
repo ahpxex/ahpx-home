@@ -32,7 +32,7 @@ const contactItems = [
 
 const socialLinks = [
   { label: "GitHub", href: "https://github.com/ahpxex" },
-  { label: "Twitter", href: "https://x.com/ofshawnfan" },
+  { label: "Twitter", href: "https://x.com/ahpxex" },
 ];
 
 const projectLimit = 5;
