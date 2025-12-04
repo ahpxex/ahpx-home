@@ -41,7 +41,7 @@ const Home: Component = () => {
   const siteAccent = siteAccentTheme;
   const [copiedLabel, setCopiedLabel] = createSignal("");
   const [activeInspirationId, setActiveInspirationId] = createSignal(
-    inspirationPanels[0].id,
+    inspirationPanels[0].id
   );
   const activeInspiration = () =>
     inspirationPanels.find((panel) => panel.id === activeInspirationId()) ??
@@ -100,7 +100,9 @@ const Home: Component = () => {
             <div
               class={`rounded-3xl border-4 border-black p-5 text-lg font-medium md:text-base shadow-[8px_8px_0_rgba(0,0,0,0.85)] ${siteAccent.tintBgClass}`}
             >
-              <p class={`text-sm uppercase tracking-[0.3em] ${siteAccent.accentTextClass}`}>
+              <p
+                class={`text-sm uppercase tracking-[0.3em] ${siteAccent.accentTextClass}`}
+              >
                 Signal boost
               </p>
               <p class="mt-3">
@@ -149,7 +151,8 @@ const Home: Component = () => {
                       [accent.borderClass]: isHighlighted(),
                       [accent.homeShadowClass]: isHighlighted(),
                       [accent.homeHoverShadowClass]: isHighlighted(),
-                      "border-black shadow-[6px_6px_0_rgba(0,0,0,0.85)]": !isHighlighted(),
+                      "border-black shadow-[6px_6px_0_rgba(0,0,0,0.85)]":
+                        !isHighlighted(),
                     }}
                   >
                     <div class="flex items-center justify-between gap-4">
@@ -193,7 +196,9 @@ const Home: Component = () => {
                     <button
                       type="button"
                       onClick={() => setActiveInspirationId(panel.id)}
-                      class={`rounded-2xl border-2 px-4 py-5 text-left font-semibold shadow-[6px_6px_0_rgba(0,0,0,0.75)] transition hover:-translate-y-1 focus-visible:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black focus-visible:ring-offset-4 focus-visible:ring-offset-[#F5F0E6] ${panel.accent.borderClass} ${
+                      class={`rounded-2xl border-2 px-4 py-5 text-left font-semibold shadow-[6px_6px_0_rgba(0,0,0,0.75)] transition hover:-translate-y-1 focus-visible:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black focus-visible:ring-offset-4 focus-visible:ring-offset-[#F5F0E6] ${
+                        panel.accent.borderClass
+                      } ${
                         isActive()
                           ? `${panel.accent.accentBgClass} ${panel.accent.onAccentTextClass}`
                           : "bg-white text-[#1F1F1F]"
@@ -213,7 +218,9 @@ const Home: Component = () => {
             <div class="rounded-[2rem] border-4 border-black bg-white p-6 sm:p-8 shadow-[10px_10px_0_rgba(0,0,0,0.85)]">
               <div class="flex items-center gap-3 text-sm font-semibold">
                 <span
-                  class={`inline-flex h-3 w-3 rounded-full border border-black ${activeInspiration().accent.accentBgClass}`}
+                  class={`inline-flex h-3 w-3 rounded-full border border-black ${
+                    activeInspiration().accent.accentBgClass
+                  }`}
                 />
                 <span class="uppercase tracking-[0.35em] text-[#4C4C4C]">
                   {activeInspiration().label}
@@ -237,7 +244,9 @@ const Home: Component = () => {
         >
           <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p class={`text-sm uppercase tracking-[0.35em] ${siteAccent.accentTextClass}`}>
+              <p
+                class={`text-sm uppercase tracking-[0.35em] ${siteAccent.accentTextClass}`}
+              >
                 Direct line
               </p>
               <h2 class="text-3xl font-semibold">
@@ -254,7 +263,9 @@ const Home: Component = () => {
                   class={`rounded-3xl border-[3px] border-black px-5 py-5 text-left shadow-[6px_6px_0_rgba(0,0,0,0.8)] transition hover:-translate-y-1 ${siteAccent.tintBgClass}`}
                   onClick={() => handleCopy(item.label, item.value)}
                 >
-                  <p class={`text-xs uppercase tracking-[0.35em] ${siteAccent.accentTextClass}`}>
+                  <p
+                    class={`text-xs uppercase tracking-[0.35em] ${siteAccent.accentTextClass}`}
+                  >
                     {item.label}
                   </p>
                   <p class="mt-2 text-xl font-semibold">
@@ -275,9 +286,7 @@ const Home: Component = () => {
                 <p class="text-lg font-semibold">
                   Let's build the next playful tool.
                 </p>
-                <p>
-                  Working from UTC+7 · DM @ahpx or email to jam on launches.
-                </p>
+                <p>Base Beijing · UTC + 8</p>
               </div>
               <div class="flex flex-wrap gap-3 text-base font-semibold">
                 <For each={socialLinks}>
